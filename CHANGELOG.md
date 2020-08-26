@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-tags` will be documented in this file
 
+## 2.7.1 - 2020-08-24
+
+- avoid duplicate error on syncTagsWithType (#274)
+
+## 2.7.0 - 2020-08-24
+
+- allow specifying type when using `attachTags()` or `detachTags()` (#273)
+
 ## 2.6.2 - 2020-05-28
 
 - change mutator behaviour: use sync instead of attach (#260)
