@@ -26,12 +26,12 @@ class Tag extends Model implements Sortable
         return $query->where('type', $type)->ordered();
     }
 
-//    public function scopeContaining(Builder $query, string $name, $locale = null): Builder
-//    {
-//        $locale = $locale ?? app()->getLocale();
-//
-//        return $query->whereRaw('lower('.$this->getQuery()->getGrammar()->wrap('name->'.$locale).') like ?', ['%'.mb_strtolower($name).'%']);
-//    }
+    public function scopeContaining(Builder $query, string $name, $locale = null): Builder
+    {
+        $locale = $locale ?? app()->getLocale();
+
+        return $query->whereRaw('lower('.$this->getQuery()->getGrammar()->wrap('name->'.$locale).') like ?', ['%'.mb_strtolower($name).'%']);
+    }
 
     /**
      * @param string|array|\ArrayAccess $values
@@ -63,7 +63,7 @@ class Tag extends Model implements Sortable
         $locale = $locale ?? app()->getLocale();
 
         return static::query()
-            ->where("name->{$locale}", $name)
+            ->where("name", $name)
             ->where('type', $type)
             ->first();
     }
@@ -73,7 +73,7 @@ class Tag extends Model implements Sortable
         $locale = $locale ?? app()->getLocale();
 
         return static::query()
-            ->where("name->{$locale}", $name)
+            ->where("name", $name)
             ->first();
     }
 
@@ -85,7 +85,7 @@ class Tag extends Model implements Sortable
 
         if (! $tag) {
             $tag = static::create([
-                'name' => [$locale => $name],
+                'name' => $name,
                 'type' => $type,
             ]);
         }
